@@ -4,9 +4,9 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#0d1110"/>
-<meta name="description" content="Share music, not streaming services. TuneBridge turns Spotify and Apple Music songs and playlists into one effortless experience."/>
-<title>TuneBridge — Good music has no borders.</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<meta name="description" content="Paste Spotify or Apple Music songs and playlists from friends and open or import them in your preferred music service."/>
+<title>TuneBridge — Your music, one paste away.</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="manifest" href="/manifest.webmanifest"/><link rel="apple-touch-icon" href="/icon-180.png"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-title" content="TuneBridge"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -45,44 +45,49 @@
 <main>
 <section class="hero container" id="home-screen">
  <div class="hero-copy">
-   <div class="eyebrow"><span class="eyebrow-dot"></span> ONE LINK. EVERY LISTENER.</div>
-   <h1>Great music<br/>should <em>travel.</em></h1>
-   <p class="hero-description">Spotify person? Apple Music person? Doesn't matter. Share songs and playlists that feel right at home in anyone's library.</p>
-   <div class="trust-row"><span class="trust-check"><svg class="icon"><use href="#i-check"/></svg></span><span>Two platforms. Zero awkward links.</span></div>
+   <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL MUSIC BRIDGE</div>
+   <h1>They send a link.<br/><em>You hear the music.</em></h1>
+   <p class="hero-description">A Spotify link from your friend? An Apple Music playlist in the group chat? Copy, paste, and listen in <strong>your</strong> app. No awkward searching.</p>
+   <div class="hero-promise"><svg class="icon"><use href="#i-check-circle"/></svg><span id="recipient-status">Choose your music service</span><span class="hero-promise-divider">·</span><span>Works both ways</span></div>
  </div>
- <div class="hero-art" aria-label="An illustration of one song traveling between music services">
-  <div class="art-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-  <div class="mini-card mini-card-left"><span class="mini-service spotify-mini"><svg class="brand-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21ZM17 16.6c-.2.34-.64.45-.98.24-2.7-1.65-6.11-2.03-10.13-1.12a.71.71 0 0 1-.31-1.39c4.39-1 8.15-.57 11.18 1.28.34.21.45.65.24.99Zm1.4-3.12a.9.9 0 0 1-1.24.3c-3.1-1.9-7.83-2.45-11.5-1.33a.9.9 0 0 1-.53-1.72c4.18-1.27 9.39-.66 12.96 1.52a.9.9 0 0 1 .31 1.23Zm.12-3.26c-3.73-2.21-9.9-2.42-13.45-1.34a1.08 1.08 0 1 1-.63-2.07c4.07-1.23 10.87-.97 14.18 1.55a1.08 1.08 0 1 1-1.1 1.86Z"/></svg></span><span><b>Sent from Spotify</b><small>Something good is coming</small></span></div>
-  <div class="vinyl-wrapper"><div class="vinyl-disc"><div class="vinyl-center"><svg class="icon"><use href="#i-music"/></svg></div></div><div class="vinyl-spark spark-one">✳</div><div class="vinyl-spark spark-two">✦</div></div>
-  <div class="mini-card mini-card-right"><span class="mini-service apple-mini"><svg class="icon"><use href="#i-music"/></svg></span><span><b>Opened in Apple Music</b><small>Same song. No searching.</small></span><span class="tiny-check"><svg class="icon"><use href="#i-check"/></svg></span></div>
-  <div class="art-star star-a">✳</div><div class="art-star star-b">✳</div>
- </div>
+ <div class="hero-preview" aria-hidden="true"><div class="flow-micro-card spotify-flow"><div class="flow-icon spotify-logo">♫</div><div><span>From your friend</span><strong>Spotify playlist</strong></div><svg class="icon"><use href="#i-list"/></svg></div><div class="flow-connector"><span class="flow-link-dot"></span><span>ONE PASTE</span><span class="flow-link-dot"></span></div><div class="flow-micro-card apple-flow"><div class="flow-icon apple-logo"><svg class="icon"><use href="#i-music"/></svg></div><div><span>Opens where you listen</span><strong>Apple Music</strong></div><svg class="icon"><use href="#i-check-circle"/></svg></div></div>
 </section>
 <section class="workspace container" id="workspace">
- <div class="workspace-top"><div><span class="section-eyebrow">THE MAGIC HAPPENS HERE</span><h2 id="workspace-title">Pass the aux. <span>Any way.</span></h2></div><span class="step-note"><span class="pulse"></span>Made for real music people</span></div>
+ <div class="workspace-top"><div><span class="section-eyebrow">A LINK FROM A FRIEND</span><h2 id="workspace-title">Your music, <span>one paste away.</span></h2></div><span class="step-note"><span class="pulse"></span>Personal music inbox</span></div>
  <div class="app-panel">
    <div class="app-panel-main">
-    <div class="type-tabs" role="tablist" aria-label="Content type"><button class="type-tab active" id="tab-song" type="button" role="tab" aria-selected="true" data-mode="song"><svg class="icon"><use href="#i-music"/></svg> A song</button><button class="type-tab" id="tab-playlist" type="button" role="tab" aria-selected="false" data-mode="playlist"><svg class="icon"><use href="#i-list"/></svg> A playlist <span class="new-chip">NEW</span></button></div>
-    <form id="convert-form" novalidate><label class="input-title" for="music-input" id="input-label">Paste a song link</label><p class="input-subtitle" id="input-hint">From Spotify or Apple Music. We'll take it from there.</p>
-    <div class="url-input-wrap"><svg class="icon"><use href="#i-link"/></svg><input id="music-input" name="music-input" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://open.spotify.com/track/..."/><button class="paste-btn" id="paste-button" type="button">Paste</button></div>
+    <div class="type-tabs" role="tablist" aria-label="Content type"><button class="type-tab active" id="tab-song" type="button" role="tab" aria-selected="true" data-mode="song"><svg class="icon"><use href="#i-music"/></svg> Song</button><button class="type-tab" id="tab-playlist" type="button" role="tab" aria-selected="false" data-mode="playlist"><svg class="icon"><use href="#i-list"/></svg> Playlist <span class="new-chip">NEW</span></button></div>
+    <form id="convert-form" novalidate><label class="input-title" for="music-input" id="input-label">Paste a music link</label><p class="input-subtitle" id="input-hint">Copy a normal Spotify or Apple Music link from your texts. We detect songs and playlists automatically.</p>
+    <div class="url-input-wrap"><svg class="icon"><use href="#i-link"/></svg><input id="music-input" name="music-input" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="Spotify or Apple Music song / playlist URL"/><button class="paste-btn" id="paste-button" type="button">Paste</button></div>
     <div id="form-error" class="inline-message error" role="alert" hidden></div>
-    <button class="primary-button" id="convert-button" type="submit"><span id="convert-label">Make my smart link</span><svg class="icon"><use href="#i-arrow-right"/></svg></button>
+    <button class="primary-button" id="convert-button" type="submit"><span id="convert-label">Open my music</span><svg class="icon"><use href="#i-arrow-right"/></svg></button>
     </form>
-    <div class="demo-row"><span>Just browsing?</span><button id="demo-song" type="button">Try a song <svg class="icon"><use href="#i-arrow-up-right"/></svg></button><span class="demo-sep"></span><button id="demo-playlist" type="button">Preview a playlist <svg class="icon"><use href="#i-arrow-up-right"/></svg></button></div>
+    <div class="demo-row"><span>See how it works:</span><button id="demo-song" type="button">Try a song <svg class="icon"><use href="#i-arrow-up-right"/></svg></button><span class="demo-sep"></span><button id="demo-playlist" type="button">Preview a playlist <svg class="icon"><use href="#i-arrow-up-right"/></svg></button></div>
    </div>
-   <div class="app-panel-aside"><div class="aside-inner"><div class="aside-label"><span class="aside-line"></span>HOW IT FLOWS</div><div class="aside-step"><span class="step-index">01</span><div><b>Drop a link</b><span>Any song or accessible playlist</span></div></div><div class="connector-line"></div><div class="aside-step"><span class="step-index">02</span><div><b>We bridge the gap</b><span>Find the same music in their app</span></div></div><div class="connector-line"></div><div class="aside-step"><span class="step-index">03</span><div><b>Let the music play</b><span>Open it or import with one tap</span></div></div><div class="aside-footer"><svg class="icon"><use href="#i-lock"/></svg> Playlists always require your permission to import.</div></div></div>
+   <aside class="app-panel-aside"><div class="aside-inner setup-card">
+     <div class="aside-label"><span class="aside-line"></span> YOUR LISTENING SETUP</div>
+     <h3 id="destination-label">Choose a destination</h3>
+     <p class="setup-intro">Pick your default once. Connecting an account is only needed to create playlists in your library.</p>
+     <button id="setup-preference" class="setup-preference" type="button" onclick="document.getElementById('profile-button').click()"><svg class="icon"><use href="#i-settings"/></svg> Change my music app <svg class="icon"><use href="#i-chevron"/></svg></button>
+     <div class="connection-list">
+       <div class="connection-row"><div class="connection-logo spotify-mark">♫</div><div class="connection-copy"><b>Spotify</b><small id="spotify-connection">Not connected</small></div><button id="connect-spotify" type="button" class="connection-action">Connect</button></div>
+       <div class="connection-row"><div class="connection-logo apple-mark"><svg class="icon"><use href="#i-music"/></svg></div><div class="connection-copy"><b>Apple Music</b><small id="apple-connection">Not connected</small></div><button id="connect-apple" type="button" class="connection-action">Connect</button></div>
+     </div>
+     <button id="disconnect-spotify" type="button" class="connection-disconnect">Disconnect Spotify on this device</button>
+     <div class="aside-footer"><svg class="icon"><use href="#i-lock"/></svg> No playlist is created until you approve the import.</div>
+   </div></aside>
  </div>
  <div id="preview-section" class="preview-panel" hidden>
    <div class="preview-header"><div><div class="preview-kicker" id="preview-kicker">READY TO SHARE</div><h3 id="preview-heading">Your music, connected.</h3></div><button id="close-preview" class="close-result" type="button" aria-label="Close result"><svg class="icon"><use href="#i-x"/></svg></button></div>
    <div class="preview-body"><div class="preview-content">
       <div class="music-summary"><div class="summary-art" id="summary-art"><svg class="icon"><use href="#i-music"/></svg></div><div class="summary-details"><h4 id="summary-title">Playlist</h4><p id="summary-subtitle">Song artist</p><span id="summary-source" class="source-tag">SPOTIFY</span></div></div>
-      <div id="song-view" hidden><p class="preview-helper">This smart link opens in each listener's preferred music app.</p><div class="music-platform-links" id="song-platform-links"></div></div>
+      <div id="song-view" hidden><p class="preview-helper" id="song-description">Open the matching song in the music app you chose.</p><div class="music-platform-links" id="song-platform-links"></div></div>
       <div id="playlist-view" hidden><div class="playlist-stats"><span id="playlist-count">0 songs</span><span id="playlist-match-status">Ready to preview</span></div><ol id="track-list" class="track-list"></ol><div id="playlist-warning" class="subtle-alert" hidden></div><div id="match-summary" class="match-summary" hidden></div></div>
       <div id="shared-url-box" class="share-link-group" hidden><label for="share-url-input">YOUR SHAREABLE TUNEBRIDGE LINK</label><div class="share-link-input"><input id="share-url-input" readonly/><button id="copy-link" type="button"><svg class="icon"><use href="#i-copy"/></svg> Copy</button></div></div>
       <div id="result-error" class="inline-message error" hidden></div><div id="result-success" class="inline-message success" hidden></div>
       <div class="preview-buttons"><button id="primary-result-action" type="button" class="primary-button result-primary"><span>Share this song</span><svg class="icon"><use href="#i-arrow-right"/></svg></button><button id="secondary-result-action" class="secondary-button" type="button" hidden>Secondary action</button></div>
       <p id="preview-footnote" class="preview-footnote"></p>
-   </div><div class="preview-decor"><div class="decor-oval"><div class="decor-hole"></div></div><div class="preview-decor-text">MADE TO<br/>BE SHARED.</div></div></div>
+   </div><div class="preview-decor"><div class="decor-oval"><div class="decor-hole"></div></div><div class="preview-decor-text">GOOD MUSIC.<br/>NO BORDERS.</div></div></div>
  </div>
 </section>
 <section id="how-it-works" class="features container"><div class="features-heading"><span class="section-eyebrow">GOOD MUSIC HAS NO BORDERS</span><h2>Same feeling.<br/><em>Different player.</em></h2><p>Share the stuff you love without worrying about the app someone else uses.</p></div><div class="features-grid">

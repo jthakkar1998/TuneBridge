@@ -1,96 +1,83 @@
-# TuneBridge v2 — songs and playlists across Spotify + Apple Music
+# TuneBridge v4 — Your music, one paste away
 
-A polished, mobile-first, dependency-free Node.js web app. Shares song URLs that redirect to listeners' saved streaming service and supports *authorized* playlist read → review matches → import workflows in both directions.
+A mobile-first web app for people whose friends use the other music service. **The sender shares a normal Spotify or Apple Music URL. The recipient opens TuneBridge, pastes it once, and uses their saved preferred streaming app.** Songs open at the matching recording; accessible playlists are reconstructed in the recipient's library after match review and explicit approval. Two-way support is designed in, with important platform access constraints below.
 
-## Try the working demonstration (no credentials required)
+## Vercel Hobby deployment (fixed in this edition)
 
-1. Install **Node.js 20+**.
-2. Run `npm start` in this folder and open `http://localhost:3000`.
-3. Click **Try a song** for a verified two-platform example (automatically shows the opposite service if a listening preference was saved). Switch to **A playlist → Preview a playlist → See sample song matches** to explore the *illustrative* match review, including a borderline match and unavailable song. Nothing in the demo accesses a catalog or creates a playlist.
-4. Choose **Spotify** or **Apple Music** from the header to save your preferred listening platform on this device.
-5. The demo playlist **does not connect to streaming APIs or create playlists**. Real external song matching and playlist importing require the setup below.
+This version fixes the **"No more than 12 Serverless Functions"** deployment failure in v4. The old 13 endpoint files have been consolidated into **one** `api/index.js` Vercel Function. `vercel.json` routes all public `/api/*` URLs through that function without changing the frontend URLs. You **do not need Vercel Pro** to address this limit.
 
-Automated tests: `npm test`. The server has no third-party Node dependencies. The UI uses Google Fonts when connected to the internet (system fallbacks otherwise).
+1. Replace the contents of your existing TuneBridge GitHub repository with **this entire project's contents** (including deleting the old `api/apple/`, `api/spotify/` and other endpoint files). Keep the repository root as the Vercel Root Directory. Do not simply add the new `api/index.js` next to the old API files: that would **increase** your function count.
+2. Confirm `api/` contains **only** `index.js` and `lib/resolve.js` now lives under `lib/` (not `api/`). The ZIP is arranged this way already.
+3. Push the changes to GitHub. Vercel should create a new Preview deployment. You can also redeploy the new commit from the Vercel dashboard.
+4. Open `https://YOUR-DEPLOYMENT.vercel.app/api/status` and `https://YOUR-DEPLOYMENT.vercel.app/api/demo`. Both should return JSON. Then open the homepage and test the demo song/playlist.
+5. Add any API keys separately in Vercel Environment Variables to activate live integrations. This deployment fix **does not** itself activate Spotify, Apple Music, MusicLink or MusicAPI.
 
-## Production services and access
+The route behavior is covered by automated tests. **The actual Vercel deployment has not been run** from this offline environment, so if you encounter a new build/runtime issue, share the new Vercel log.
 
-| Feature | Required configuration | What it does |
+## What this version actually does
+
+- **One paste box** recognizes Spotify / Apple Music songs vs. playlists automatically (Spotify `spotify.link` shortened URLs are expanded). A service preference is saved in the browser. Same-service links bypass conversion and open directly.
+- **Songs:** after a successful match, attempts to navigate directly to your preferred app's song URL, and shows a persistent Open button as a fallback for browsers that block native app opening. Uses MusicLink v2. When no MusicLink key is present, one *labeled example* song works; arbitrary live matches do not.
+- **Playlists:** retrieves accessible metadata and ordered track lists; searches the destination catalog by ISRC and name/artist; distinguishes exact matches, approximate matches requiring individual selection, and unmatched tracks; only creates a playlist after the user confirms. Imports are snapshots, not synced playlists. Same-service playlist links open directly.
+- **Playlist from an unrelated Spotify friend:** the official Spotify development API **does not** let your logged-in account read their playlist's tracks. An **optional** adapter to MusicAPI's documented public playlist catalog endpoint is implemented. It is OFF until MusicAPI credentials are provided and its terms/costs have been reviewed. **The adapter was unit-tested with mock responses; not tested live.** No scraping or bypassing Spotify's API restrictions is built in.
+- **Connections:** optional Spotify PKCE login with browser-local access/refresh tokens so Spotify users don't have to authorize every visit; Apple Music authorization via MusicKit Web JS when adding a playlist. Apple MusicKit may reuse its prior authorization where allowed. A browser can lose or revoke connections; no permanent login is guaranteed.
+- **Account syncing:** optional Supabase email magic links and synced preference. *Streaming tokens are not synced between devices*. Supabase share snapshots from v3 remain available but the UI now prioritizes receiving rather than publishing music.
+
+The demo is deliberately honest. It **does not** create a real playlist or claim to have queried any catalog.
+
+## Run locally
+
+1. Install Node.js 20.6 or later.
+2. From the extracted folder run `npm test`, then `npm start`.
+3. Visit `http://127.0.0.1:3000/` (use **127.0.0.1** for Spotify OAuth localhost testing).
+4. Choose your music app once; tap **Try a song** or **Preview a playlist** for no-credentials demonstrations.
+
+To use a `.env` file locally, run `node --env-file=.env server.js` instead of `npm start` — the default Node command does not load `.env` automatically. Never commit your `.env`.
+
+## Credentials and activation checklist
+
+| Feature | Credential | Where to put it |
 | --- | --- | --- |
-| Recognize and share the single demo song | None | Demonstrates Spotify ↔ Apple Music song URLs and smart link preference |
-| Match arbitrary song links | `MUSICLINK_API_KEY` server environment | Calls MusicLink v2 from the server; no secret exposed to browser |
-| Read Spotify playlists and create Spotify playlists | `spotifyClientId` in **public** `config.js` | Spotify OAuth 2.0 with PKCE; only playlists owned by / collaboratively accessible to the signed-in Spotify user in developer mode |
-| Read Apple catalog playlists / match Apple tracks | Apple Music developer credentials, server environment | Uses Apple Music API catalog endpoints |
-| Read personal Apple playlists and create Apple Music playlists | Apple developer credentials + MusicKit Web JS user authorization | Recipient's Apple Music account must authorize the import |
-| Persistent shareable playlist snapshots on Vercel | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` server environment, SQL below | Stores a copy of source metadata and track list; not source playlist contents that change later |
-| Email sign-in and synced music preference | `supabaseUrl`, `supabaseAnonKey` in public `config.js` | Supabase magic email link, profile upsert and optional access authorization |
+| Arbitrary songs | `MUSICLINK_API_KEY` | Private server environment (not `config.js`) |
+| Spotify connection, playlist destination, your own Spotify playlists | Spotify OAuth **Client ID** | `spotifyClientId` in public `config.js` |
+| Apple Music catalog + playlist creation | `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` | Private server environment |
+| Friend's public playlists without connecting the source account (optional, unverified) | `MUSICAPI_CLIENT_ID` and optionally `MUSICAPI_CLIENT_SECRET` | Private server environment |
+| Email sign-in + optional synced preference | Supabase Project URL and publishable key | `supabaseUrl`, `supabaseAnonKey` in `config.js` |
+| Supabase shared playlist storage | `SUPABASE_URL`, `SUPABASE_SECRET_KEY` | Private server environment; legacy `SUPABASE_SERVICE_ROLE_KEY` also supported |
 
-**Spotify important**: Spotify development-mode API access presently allows only **five authorized Spotify users** per app, and the Spotify developer must have Premium. Reading playlist *contents* is limited to playlists owned by or collaborative with the connected Spotify account. Spotify song search is currently available but subject to rate / quota limits. Broader consumer availability requires review of Spotify's developer policies. Do not claim to support any publicly viewable Spotify playlist.
+**MusicLink**: https://musiclink.one/. Its free tier covers 300 requests per month for personal use and requires attribution. Check the current pricing/terms before distributing the app.
 
-**Apple important**: Creating a library playlist via Apple's API may **not** produce a public share URL. TuneBridge opens the personal copy in the user's library; it does not promise a public playlist link. Availability and matching can differ by region. The Apple user must authorize writes.
+**Spotify**: https://developer.spotify.com/dashboard — create an app and register an **exact** redirect URI (e.g. `http://127.0.0.1:3000/` for local, `https://YOUR-DOMAIN.vercel.app/` for production). Spotify development-mode apps require a Premium owner and are limited to five allowlisted users. Playlist item retrieval is only permitted for playlists the signed-in Spotify user owns or collaborates on in this mode: https://developer.spotify.com/documentation/web-api/tutorials/february-2026-migration-guide.
 
-### A. Set up live song matching
+**Apple**: https://developer.apple.com/musickit/ — paid developer account (typically $99 USD/year) and a valid MusicKit media key. Put the `.p8` key **only on the server**. `APPLE_ORIGIN` is optional; if supplied it is encoded as an array claim in the developer JWT. An Apple subscriber must authorize their library before importing. Apple-created *library* playlists may not have a public, navigable URL; TuneBridge can take you to your playlists library but not reliably to that exact newly created playlist across devices.
 
-Sign up at https://musiclink.one/ and set `MUSICLINK_API_KEY` as a **server environment variable**. The free tier is for personal experiments; see their current commercial/attribution terms. Do **not** put this key in `config.js` or in the browser.
+**MusicAPI public-playlist adapter (optional)**: https://musicapi.com/docs/reference/get-public-playlist-items. Uses `POST /public/inspect/url` and paginated `POST /public/inspect/playlistItems` (50 items per page), with a 300-track per-import cap. Verify the provider's authorization, data rights, compliance, availability and pricing for your use case before you turn it on. Current provider documents describe a **€500/month minimum for managed integrations**; some self-managed plans have no minimum. Don't subscribe on this app's behalf or assume a free tier: https://musicapi.com/docs/billing/billing-and-usage. A configured provider may still decline or fail for some links. Spotify's official restriction still exists, irrespective of third-party claims.
 
-### B. Spotify integration
-
-1. Register an app in the [Spotify developer dashboard](https://developer.spotify.com/dashboard).
-2. Add the full redirect URI to Spotify's allowlist. It must match the browser exactly. **For local Spotify OAuth, use a supported loopback origin such as `http://127.0.0.1:3000/` rather than `http://localhost:3000/`**, if the current Spotify dashboard rejects localhost. Production uses an HTTPS domain such as `https://example.vercel.app/`.
-3. Put its **Client ID** (not client secret) in `config.js` as `spotifyClientId`.
-4. Start from that same origin. For local use, `http://127.0.0.1:3000/`.
-5. Paste your own Spotify playlist link. The app will prompt Spotify OAuth PKCE, request playlist read/write scopes, then return to the app.
-
-Spotify tokens stay in browser **sessionStorage** and are passed to the TuneBridge server only when that server needs to invoke the Spotify API. The server does not persist user tokens. OAuth uses state and PKCE challenge and does not require a Spotify client secret. Spotify does not auto-connect just because the user selected Spotify as a preference.
-
-### C. Apple Music integration
-
-1. In the Apple Developer account, enable MusicKit / media services and create a MusicKit signing key and app identifier as required by Apple.
-2. Set server variables `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_PRIVATE_KEY` (PEM text, newline escaped if necessary). Alternatively use an unexpired `APPLE_DEVELOPER_TOKEN` for short-term testing.
-3. Specify `APPLE_ORIGIN` if required by your MusicKit developer token configuration. Configure the actual site origin according to Apple's MusicKit requirements.
-4. For imports to Apple Music, the **recipient** authorizes MusicKit on the web via Apple's authorization dialog. The server then sends the resulting user token to Apple's authenticated library endpoints. Do not put the developer key in public files.
-5. Apple Music catalog playlist URLs are readable via Apple developer credentials; a personal library playlist may require Apple Music account authorization.
-
-### D. Supabase auth + share storage (recommended for deployment)
-
-1. Create a Supabase project, then execute `supabase.sql` in SQL Editor.
-2. Set the **server** environment variables `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (a server-only secret).
-3. Add only the **public** `supabaseUrl` and `supabaseAnonKey` to `config.js`.
-4. Enable email OTP / magic link sign-in in Supabase Auth, and configure the exact production redirect URL on Supabase's auth settings.
-5. Sign into TuneBridge when publishing a shareable playlist URL. Recipients can read that share URL without signing in, but they must connect their *destination* music account before importing.
-
-Local-only demo storage works without Supabase by writing `data/shares.json`. Local sharing is for testing and **is not durable in a serverless host**. Real production requires Supabase to save share snapshots. Do not commit `data/shares.json` when it contains personal playlist names/tracks.
-
-### E. Deploy to Vercel
-
-Import this directory into Vercel as a Node.js project, **no build command**, and add server environment variables in Vercel project settings. `api/*` files use a shared Node handler and `vercel.json` supplies basic headers. Set Spotify and Supabase callback allowlists to your production URL. Ensure `/app.js`, `/styles.css`, `/api/*` and `/` resolve on the public domain. This version has **not** been deployed, and no real streaming credentials have been provided for external end-to-end testing.
+**Supabase**: Create a project at https://supabase.com and run `supabase.sql` if you need cloud-stored share links. The browser may use a `sb_publishable_...` key, never a server secret. Set a `sb_secret_...` key in `SUPABASE_SECRET_KEY` on the server. Enable email OTP/magic links and configure the same application URL as an auth redirect. Supabase is not required for the one-device preference and paste flow.
 
 ## User flow
 
-- **Songs**: Paste a track link (including common `spotify.link` short links) → TuneBridge resolves platform equivalents → copy a smart link → recipient opens it; if they have a saved preference, TuneBridge redirects to the corresponding platform. If they have no preference, they select one. A browser/OS ultimately decides whether an installed native app opens.
-- **Playlists (Spotify → Apple)**: Owner authorizes Spotify and opens a playlist they own / collaborate on → reads track metadata → publishes a TuneBridge link → recipient opens link, selects Apple Music, taps **Match songs for import**, reviews exact / approximate / missing matches, then authorizes Apple Music and explicitly creates their personal playlist.
-- **Playlists (Apple → Spotify)**: Same steps reversed, requiring an Apple catalog or accessible library playlist and Spotify destination authorization.
-- A **TuneBridge link** for a playlist is a share of the source track list. It is *not* automatically a public destination Spotify/Apple playlist.
+1. Recipient visits TuneBridge and chooses Spotify or Apple Music once.
+2. Recipient optionally connects that service for **playlist writes** (song opening itself does not require music account authorization).
+3. Friend texts an ordinary Spotify/Apple Music link — **they need not use TuneBridge**.
+4. Recipient pastes that URL in TuneBridge. For songs: a successful live match opens the preferred destination link. For playlists: TuneBridge reads available tracks, matches them automatically, shows uncertain/missing songs, and asks for approval before creating a native personal playlist in the recipient's library.
+5. Same-service links open as-is without extra API calls.
 
-## Limitations / honest status
+### Limitations / security / remaining verification
 
-- End-to-end live Spotify and Apple imports are **implemented but not verified against real accounts**, because credentials, developer accounts and approvals are not supplied. Test with an allowlisted Spotify account and an authorized Apple Music subscriber after setup.
-- First version imports up to **300 tracks** from a source playlist. Larger playlists are marked truncated. Matching runs in batches; API rate limits and hosting runtime limits can affect performance. Not all live recordings or region-limited songs will be available.
-- No continuous synchronization; copies are snapshots. Duplicates are preserved where both catalogs identify the same recording. The user must confirm before the playlist is written.
-- Exact Apple matches are automatically selected, approximate matches require confirmation; a missing match is excluded. Check source/target territory and licensing.
-- A *regular Spotify or Apple link sent directly through iMessage* isn't intercepted or rewritten by TuneBridge. To use this feature, share the TuneBridge URL.
-- A Spotify playlist need not be public to be read if the owner authorizes it; arbitrary public Spotify playlist contents are intentionally **not** scraped/bypassed.
+- **Not fully activated or publicly deployed.** No private API credentials were supplied. Live playlist transfers and phone-level app launches cannot be verified here. Automated tests cover validation, matching, API adapter pagination, error handling and mock create calls; browser interaction testing uses offline mocked API responses.
+- **Public Spotify playlist reading is the unresolved prerequisite** for arbitrary unrelated friends unless you activate and validate an authorized provider. The code explains missing access rather than claiming success. Do not treat provider marketing claims as proof of permission or future availability.
+- **Persistence tradeoff:** Spotify PKCE tokens are stored in the browser's `localStorage` to reduce repeat login. This is appropriate only for a trusted personal test environment, not a hardened, public multiuser product. A production deployment should use encrypted server-side token storage with per-user access controls, explicit disconnect/revocation, and a security review. Apple MusicKit user-token persistence varies by browser and device.
+- Phone operating systems decide whether HTTPS service URLs actually launch native apps. TuneBridge cannot intercept ordinary iMessage links or force an installed app to open in all cases.
+- Music data matching is best-effort. ISRC and track/artist/duration scores are used. Live edits, remixes, regional restrictions, local files, missing tracks and API quotas can reduce results. The preview shows precisely what's missing or uncertain, not invented tracks.
+- The playlist limit is **300 songs** per import; larger playlists are flagged as truncated. Third-party API calls and matching can be expensive/slow on low-tier plans. Rate limiting is per Node instance, not a production-wide gateway.
+- Apple Music import returns the created playlist ID but **not a guaranteed deep link** to the specific library playlist. Public native playlist sharing isn't guaranteed. The app links to the user's library view instead.
+- Spotify user data is not downloaded as audio and no streaming playback is implemented.
 
-## Technical notes
+## Deploy to Vercel
 
-- Node built-in `http`, no runtime npm packages; MusicKit Web JS and optional Supabase browser SDK are loaded on demand.
-- Endpoints: `/api/expand`, `/api/resolve`, `/api/demo`, `/api/status`, `/api/spotify/playlist`, `/api/spotify/match`, `/api/spotify/create`, `/api/apple/token`, `/api/apple/playlist`, `/api/apple/match`, `/api/apple/create`, `/api/shares`.
-- Playlists are created as *private* on Spotify. Source playlist snapshots in shared links can be read by anyone with the TuneBridge URL.
-- No secret keys in `config.js`. Before launching to a public audience, add an external rate-limit and abuse prevention service, privacy policy, data deletion, monitoring, and more rigorous OAuth security review.
+Upload the **folder contents** to GitHub. Import the repository in Vercel with the Other framework preset, project root at this folder, no build command, and Node >=20. The `api/*` wrappers (including `api/public/playlist.js`) route requests through `server.js`, while root HTML/CSS/JS are static. Supply private variables through Vercel Settings → Environment Variables and redeploy. Configure the resulting HTTPS origin as an allowlisted Spotify OAuth redirect and Supabase sign-in URL. See `/api/status` to inspect whether keys are *present* (not whether they actually work). Check Spotify and Apple Music terms before any wider rollout.
 
-## Source docs
+## Test and structure
 
-- https://developer.spotify.com/documentation/web-api/tutorials/february-2026-migration-guide
-- https://developer.spotify.com/documentation/web-api/reference/create-playlist
-- https://developer.apple.com/documentation/applemusicapi/create-a-new-library-playlist
-- https://developer.apple.com/documentation/applemusicapi/add-tracks-to-a-library-playlist
-- https://musiclink.one/blog/whats-new-v2
+Run `npm test` for **22 tests** using Node's built-in test runner (no npm dependencies). UI interaction smoke checks were run with mocked API responses at desktop and iPhone viewport sizes; screenshots are included as separate preview files. `lib/public-playlists.js` is the optional metadata provider adapter, `lib/spotify.js` / `lib/apple.js` are streaming integrations, `app.js` implements the receive-first frontend, `server.js` contains the routes and validation, and `supabase.sql` is optional account/share storage.
