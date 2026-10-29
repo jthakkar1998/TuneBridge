@@ -36,3 +36,24 @@ button:disabled{opacity:.55;cursor:not-allowed!important}
 .music-platform-links .platform-link span{border:0;padding:0;border-radius:0;font-size:inherit;font-weight:inherit;display:inline-block}
 .music-platform-links .platform-link .small-dot{height:12px;width:12px;flex:none;border-radius:50%;display:inline-block;background:#1ed760}
 .music-platform-links .platform-link .apple-dot{background:linear-gradient(140deg,#ff8ca9,#e83e66)}
+/* v4: the paste box is the product; destination and connections are always visible. */
+.hero{min-height:270px;grid-template-columns:minmax(0,1.35fr) minmax(270px,.65fr);padding-top:34px;padding-bottom:20px;gap:30px}
+.hero h1{font-size:clamp(34px,4.4vw,59px);letter-spacing:-2.6px;line-height:1.1;margin-top:12px;margin-bottom:13px}
+.hero-copy{padding:0}.hero-description{max-width:670px;margin-bottom:17px;line-height:1.55;font-size:14px}.hero-description strong{color:var(--lime)}
+.hero .eyebrow{margin-bottom:8px}.hero-promise{display:flex;align-items:center;gap:10px;color:#d6e5c7;font-size:12px;font-weight:700;flex-wrap:wrap}.hero-promise .icon{color:var(--lime);width:17px;height:17px}.hero-promise-divider{color:#7a8b78}
+.hero-preview{display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:8px;padding:20px 9px 20px 20px}
+.flow-micro-card{padding:16px 18px;border-radius:15px;border:1px solid #435449;background:#202b24;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px #0003;transform:rotate(-2deg)}
+.flow-micro-card.apple-flow{border-color:#55634b;transform:rotate(2deg);margin-left:29px}
+.flow-icon{height:40px;width:40px;display:grid;place-items:center;border-radius:12px;flex:none;font-size:22px}.spotify-logo{background:#1ed760;color:#08340d}.apple-logo{background:linear-gradient(140deg,#ff819e,#e14669);color:#fff}.apple-logo .icon{height:24px;width:24px}
+.flow-micro-card>div:nth-child(2){display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.flow-micro-card span{font-size:10px;color:#b4c1b0}.flow-micro-card strong{font:800 13px var(--font);white-space:nowrap}.flow-micro-card>.icon{color:var(--lime);height:18px;width:18px}
+.flow-connector{display:flex;justify-content:center;align-items:center;gap:9px;font:800 10px var(--font);letter-spacing:1.5px;color:var(--lime)}.flow-link-dot{width:25px;height:1px;background:#77966a}
+.workspace{padding-top:14px}.workspace-top{margin-bottom:16px}.workspace-top h2{font-size:27px}.workspace-top .section-eyebrow{font-size:9px}
+.app-panel{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr)}
+.app-panel-main{padding-top:25px;padding-bottom:25px}.type-tabs{margin-bottom:19px}.url-input-wrap{background:#111a14;border-color:#5a6e53}
+.setup-card{padding:26px 25px}.setup-card h3{font:800 21px var(--font);letter-spacing:-.5px;margin:16px 0 6px}.setup-intro{font-size:12px;line-height:1.6;color:#adbfaa;margin-bottom:14px}
+.setup-preference{background:#2a3b2e;border:1px solid #526a4c;border-radius:10px;display:flex;gap:10px;align-items:center;color:#ecf9e8;font:700 12px var(--font);padding:11px 12px;width:100%;text-align:left;margin-bottom:15px}.setup-preference .icon{height:17px;width:17px}.setup-preference .icon:last-child{margin-left:auto}
+.connection-list{display:flex;flex-direction:column;gap:9px}.connection-row{display:flex;align-items:center;gap:10px;background:#1b2a20;border:1px solid #38483d;padding:10px;border-radius:12px;min-width:0}.connection-logo{height:34px;width:34px;flex:none;display:grid;place-items:center;border-radius:9px}.connection-logo .icon{height:20px;width:20px}.connection-copy{display:flex;flex-direction:column;min-width:0;flex:1;gap:3px}.connection-copy b{font:800 11px var(--font)}.connection-copy small{font:500 10px/1.4 var(--body);color:#afbea9}.connection-action{border:1px solid #729767;background:#2e482e;color:#e4ffd8;padding:8px 10px;border-radius:8px;font:800 10px var(--font)}.connection-disconnect{margin-top:10px;background:none;border:0;text-decoration:underline;text-underline-offset:3px;color:#9ba99a;font-size:10px;padding:2px}.setup-card .aside-footer{margin-top:18px;font-size:10px}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:26px;padding-bottom:7px;gap:0}.hero h1{font-size:clamp(36px,8.2vw,52px);letter-spacing:-2.5px}.hero-description{font-size:13px}.hero-preview{display:none}.workspace{padding-top:16px;padding-bottom:48px}.workspace-top h2{font-size:25px}.workspace-top .step-note{display:none}.app-panel-aside{display:block;border-top:1px solid #3b4e3a}.setup-card{padding:20px}.type-tabs{margin-bottom:17px}.app-panel-main{padding:22px 18px}.url-input-wrap input{font-size:12px}.features{padding-top:40px}}
+/* Keep the Paste affordance readable against the dark link input. */
+.url-input-wrap .paste-btn{color:#d3f5a0;border-left-color:#425443}
+.url-input-wrap .paste-btn:hover{color:#fff}

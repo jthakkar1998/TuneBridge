@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { resolveTrack, recognize } = require('../api/resolve');
+const { resolveTrack, recognize } = require('../lib/resolve');
 const SPOTIFY = 'https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT';
 const APPLE = 'https://music.apple.com/us/song/1559885421';
 
