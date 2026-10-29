@@ -70,7 +70,7 @@ async function resolveTrack(inputUrl, env = process.env, fetchImpl = fetch) {
     endpoint.searchParams.set('q', inputUrl);
     const response = await fetchImpl(endpoint.toString(), {
       headers: { Authorization: `Bearer ${key}`, Accept: 'application/json' },
-      signal: AbortSignal.timeout(12000),
+      signal: AbortSignal.timeout(30000),
     });
     if (!response.ok) {
       const code = response.status;
