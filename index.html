@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#0d1110"/>
+<meta name="description" content="Share music, not streaming services. TuneBridge turns Spotify and Apple Music songs and playlists into one effortless experience."/>
+<title>TuneBridge — Good music has no borders.</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+<svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="18" cy="19" r="2"/><path d="m8 11 8-5m-8 7 8 5"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 .5l3-3a5 5 0 0 0-7-7l-2 2"/><path d="M14 11a5 5 0 0 0-7-.5l-3 3a5 5 0 0 0 7 7l2-2"/></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><rect x="3" y="13" width="4" height="7" rx="2"/><rect x="17" y="13" width="4" height="7" rx="2"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h12M8 12h12M8 18h12M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+<symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5L20 7"/></symbol>
+<symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8L12 3ZM19 18l.6 1.4L21 20l-1.4.6L19 22l-.6-1.4L17 20l1.4-.6L19 18Z"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-3 4-3 14 0 18M12 3c3 4 3 14 0 18"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 0 16 0 8 8 0 0 0-16 0Z"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="m9 6 10 6-10 6V6Z"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.9 9A7 7 0 0 1 18 7l2 5M4 12l2 5a7 7 0 0 0 12.1-2"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 5h5v5M10 14l9-9M19 13v6H5V5h6"/></symbol>
+</svg>
+<div class="site-shell">
+<header class="site-header container">
+  <a class="brand" href="/" aria-label="TuneBridge home"><span class="brand-symbol"><span></span><span></span></span><span>Tune<span class="brand-strong">Bridge</span></span></a>
+  <nav class="desktop-nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="#why">Why TuneBridge</a></nav>
+  <div class="header-right"><button class="service-pill" id="profile-button" type="button"><span class="service-orb"></span><span id="profile-label">Choose your music app</span><svg class="icon"><use href="#i-chevron-down"/></svg></button></div>
+</header>
+<main>
+<section class="hero container" id="home-screen">
+ <div class="hero-copy">
+   <div class="eyebrow"><span class="eyebrow-dot"></span> ONE LINK. EVERY LISTENER.</div>
+   <h1>Great music<br/>should <em>travel.</em></h1>
+   <p class="hero-description">Spotify person? Apple Music person? Doesn't matter. Share songs and playlists that feel right at home in anyone's library.</p>
+   <div class="trust-row"><span class="trust-check"><svg class="icon"><use href="#i-check"/></svg></span><span>Two platforms. Zero awkward links.</span></div>
+ </div>
+ <div class="hero-art" aria-label="An illustration of one song traveling between music services">
+  <div class="art-glow"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+  <div class="mini-card mini-card-left"><span class="mini-service spotify-mini"><svg class="brand-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21ZM17 16.6c-.2.34-.64.45-.98.24-2.7-1.65-6.11-2.03-10.13-1.12a.71.71 0 0 1-.31-1.39c4.39-1 8.15-.57 11.18 1.28.34.21.45.65.24.99Zm1.4-3.12a.9.9 0 0 1-1.24.3c-3.1-1.9-7.83-2.45-11.5-1.33a.9.9 0 0 1-.53-1.72c4.18-1.27 9.39-.66 12.96 1.52a.9.9 0 0 1 .31 1.23Zm.12-3.26c-3.73-2.21-9.9-2.42-13.45-1.34a1.08 1.08 0 1 1-.63-2.07c4.07-1.23 10.87-.97 14.18 1.55a1.08 1.08 0 1 1-1.1 1.86Z"/></svg></span><span><b>Sent from Spotify</b><small>Something good is coming</small></span></div>
+  <div class="vinyl-wrapper"><div class="vinyl-disc"><div class="vinyl-center"><svg class="icon"><use href="#i-music"/></svg></div></div><div class="vinyl-spark spark-one">✳</div><div class="vinyl-spark spark-two">✦</div></div>
+  <div class="mini-card mini-card-right"><span class="mini-service apple-mini"><svg class="icon"><use href="#i-music"/></svg></span><span><b>Opened in Apple Music</b><small>Same song. No searching.</small></span><span class="tiny-check"><svg class="icon"><use href="#i-check"/></svg></span></div>
+  <div class="art-star star-a">✳</div><div class="art-star star-b">✳</div>
+ </div>
+</section>
+<section class="workspace container" id="workspace">
+ <div class="workspace-top"><div><span class="section-eyebrow">THE MAGIC HAPPENS HERE</span><h2 id="workspace-title">Pass the aux. <span>Any way.</span></h2></div><span class="step-note"><span class="pulse"></span>Made for real music people</span></div>
+ <div class="app-panel">
+   <div class="app-panel-main">
+    <div class="type-tabs" role="tablist" aria-label="Content type"><button class="type-tab active" id="tab-song" type="button" role="tab" aria-selected="true" data-mode="song"><svg class="icon"><use href="#i-music"/></svg> A song</button><button class="type-tab" id="tab-playlist" type="button" role="tab" aria-selected="false" data-mode="playlist"><svg class="icon"><use href="#i-list"/></svg> A playlist <span class="new-chip">NEW</span></button></div>
+    <form id="convert-form" novalidate><label class="input-title" for="music-input" id="input-label">Paste a song link</label><p class="input-subtitle" id="input-hint">From Spotify or Apple Music. We'll take it from there.</p>
+    <div class="url-input-wrap"><svg class="icon"><use href="#i-link"/></svg><input id="music-input" name="music-input" type="url" inputmode="url" autocomplete="url" spellcheck="false" placeholder="https://open.spotify.com/track/..."/><button class="paste-btn" id="paste-button" type="button">Paste</button></div>
+    <div id="form-error" class="inline-message error" role="alert" hidden></div>
+    <button class="primary-button" id="convert-button" type="submit"><span id="convert-label">Make my smart link</span><svg class="icon"><use href="#i-arrow-right"/></svg></button>
+    </form>
+    <div class="demo-row"><span>Just browsing?</span><button id="demo-song" type="button">Try a song <svg class="icon"><use href="#i-arrow-up-right"/></svg></button><span class="demo-sep"></span><button id="demo-playlist" type="button">Preview a playlist <svg class="icon"><use href="#i-arrow-up-right"/></svg></button></div>
+   </div>
+   <div class="app-panel-aside"><div class="aside-inner"><div class="aside-label"><span class="aside-line"></span>HOW IT FLOWS</div><div class="aside-step"><span class="step-index">01</span><div><b>Drop a link</b><span>Any song or accessible playlist</span></div></div><div class="connector-line"></div><div class="aside-step"><span class="step-index">02</span><div><b>We bridge the gap</b><span>Find the same music in their app</span></div></div><div class="connector-line"></div><div class="aside-step"><span class="step-index">03</span><div><b>Let the music play</b><span>Open it or import with one tap</span></div></div><div class="aside-footer"><svg class="icon"><use href="#i-lock"/></svg> Playlists always require your permission to import.</div></div></div>
+ </div>
+ <div id="preview-section" class="preview-panel" hidden>
+   <div class="preview-header"><div><div class="preview-kicker" id="preview-kicker">READY TO SHARE</div><h3 id="preview-heading">Your music, connected.</h3></div><button id="close-preview" class="close-result" type="button" aria-label="Close result"><svg class="icon"><use href="#i-x"/></svg></button></div>
+   <div class="preview-body"><div class="preview-content">
+      <div class="music-summary"><div class="summary-art" id="summary-art"><svg class="icon"><use href="#i-music"/></svg></div><div class="summary-details"><h4 id="summary-title">Playlist</h4><p id="summary-subtitle">Song artist</p><span id="summary-source" class="source-tag">SPOTIFY</span></div></div>
+      <div id="song-view" hidden><p class="preview-helper">This smart link opens in each listener's preferred music app.</p><div class="music-platform-links" id="song-platform-links"></div></div>
+      <div id="playlist-view" hidden><div class="playlist-stats"><span id="playlist-count">0 songs</span><span id="playlist-match-status">Ready to preview</span></div><ol id="track-list" class="track-list"></ol><div id="playlist-warning" class="subtle-alert" hidden></div><div id="match-summary" class="match-summary" hidden></div></div>
+      <div id="shared-url-box" class="share-link-group" hidden><label for="share-url-input">YOUR SHAREABLE TUNEBRIDGE LINK</label><div class="share-link-input"><input id="share-url-input" readonly/><button id="copy-link" type="button"><svg class="icon"><use href="#i-copy"/></svg> Copy</button></div></div>
+      <div id="result-error" class="inline-message error" hidden></div><div id="result-success" class="inline-message success" hidden></div>
+      <div class="preview-buttons"><button id="primary-result-action" type="button" class="primary-button result-primary"><span>Share this song</span><svg class="icon"><use href="#i-arrow-right"/></svg></button><button id="secondary-result-action" class="secondary-button" type="button" hidden>Secondary action</button></div>
+      <p id="preview-footnote" class="preview-footnote"></p>
+   </div><div class="preview-decor"><div class="decor-oval"><div class="decor-hole"></div></div><div class="preview-decor-text">MADE TO<br/>BE SHARED.</div></div></div>
+ </div>
+</section>
+<section id="how-it-works" class="features container"><div class="features-heading"><span class="section-eyebrow">GOOD MUSIC HAS NO BORDERS</span><h2>Same feeling.<br/><em>Different player.</em></h2><p>Share the stuff you love without worrying about the app someone else uses.</p></div><div class="features-grid">
+ <article class="feature-card"><div class="feature-icon feature-lime"><svg class="icon"><use href="#i-link"/></svg></div><h3>One link. Two worlds.</h3><p>A song shared from Spotify opens in Apple Music, and vice versa. Automatically, when a match is available.</p><span>01 / THE BRIDGE</span></article>
+ <article class="feature-card"><div class="feature-icon feature-peach"><svg class="icon"><use href="#i-list"/></svg></div><h3>Whole playlists, too.</h3><p>Move an accessible playlist to your music library, in the original order. Review matches before you create it.</p><span>02 / PLAYLISTS</span></article>
+ <article class="feature-card"><div class="feature-icon feature-violet"><svg class="icon"><use href="#i-headphones"/></svg></div><h3>Your app. Your rules.</h3><p>Choose your listening home once. We won't make you pick a service every time a friend sends something good.</p><span>03 / YOUR WAY</span></article>
+ </div></section>
+<section class="bottom-cta container" id="why"><div><span class="section-eyebrow">MUSIC IS BETTER TOGETHER</span><h2>Keep the music.<br/><em>Lose the friction.</em></h2></div><button id="back-to-top" class="light-button" type="button">Bridge a link <svg class="icon"><use href="#i-arrow-up-right"/></svg></button><div class="cta-ring"></div></section>
+</main>
+<footer class="footer container"><a class="brand brand-small" href="/"><span class="brand-symbol"><span></span><span></span></span><span>Tune<span class="brand-strong">Bridge</span></span></a><p>Built for the songs we send each other.</p><span>Independent project · Not affiliated with Spotify or Apple.</span></footer>
+</div>
+<div id="pref-modal" class="modal-backdrop" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="pref-title"><button class="modal-close" id="pref-close" type="button" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button><div class="modal-top-icon"><svg class="icon"><use href="#i-headphones"/></svg></div><span class="section-eyebrow">MAKE YOURSELF AT HOME</span><h2 id="pref-title">Where do you listen?</h2><p>Pick your default music app. Smart song links will open there whenever we find a match.</p><div class="service-options"><button class="service-option" type="button" data-service="spotify"><span class="service-option-mark spotify-mark">♫</span><span><b>Spotify</b><small>My music lives here</small></span><span class="option-check"><svg class="icon"><use href="#i-check"/></svg></span></button><button class="service-option" type="button" data-service="apple_music"><span class="service-option-mark apple-mark"><svg class="icon"><use href="#i-music"/></svg></span><span><b>Apple Music</b><small>My music lives here</small></span><span class="option-check"><svg class="icon"><use href="#i-check"/></svg></span></button></div><button id="pref-save" class="primary-button modal-primary" type="button">Save my preference <svg class="icon"><use href="#i-arrow-right"/></svg></button><div class="modal-account"><span id="account-status">Saved on this device</span><button id="account-button" type="button">Sign in to sync <svg class="icon"><use href="#i-arrow-up-right"/></svg></button></div></section></div>
+<div id="auth-modal" class="modal-backdrop" hidden><section class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title"><button class="modal-close" id="auth-close" type="button" aria-label="Close"><svg class="icon"><use href="#i-x"/></svg></button><div class="modal-top-icon"><svg class="icon"><use href="#i-lock"/></svg></div><span class="section-eyebrow">YOUR MUSIC, YOUR SPACE</span><h2 id="auth-title">Sign in to TuneBridge.</h2><p>One email link. No password to remember. Sync your listening preference and share playlists.</p><form id="auth-form"><label for="auth-email">Email address</label><input id="auth-email" type="email" autocomplete="email" placeholder="you@example.com" required/><button id="auth-submit" type="submit" class="primary-button modal-primary">Email me a sign-in link <svg class="icon"><use href="#i-arrow-right"/></svg></button></form><p id="auth-info" class="auth-info"></p></section></div>
+<div id="toast" class="toast" role="status" aria-live="polite"><svg class="icon"><use href="#i-check-circle"/></svg><span id="toast-text"></span></div>
+<script src="/config.js"></script><script src="/app.js" defer></script>
+</body></html>

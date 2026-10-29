@@ -1,0 +1,8 @@
+{
+  "name":"tunebridge",
+  "private":true,
+  "version":"0.3.0",
+  "description":"Mobile-first bidirectional song links and authorized playlist migration",
+  "scripts":{"dev":"node server.js","start":"node server.js","test":"node --test tests/*.test.js"},
+  "engines":{"node":">=20"}
+}
